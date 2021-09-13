@@ -96,4 +96,17 @@ export class AuthService {
   async delete(id: string) {
     return this.userModel.findByIdAndRemove(id);
   }
+
+  async adminChangePasswordUser(id: string, password: string) {
+    let user = await this.userModel.findByIdAndUpdate(id, {
+      password: password,
+    });
+    if (!user) {
+      throw new HttpException(
+        await this.i18n.translate('user.USER_NOT_FOUND'),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return;
+  }
 }

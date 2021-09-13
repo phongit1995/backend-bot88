@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -20,6 +21,7 @@ import {
 import { AdminAuthGuard } from 'src/common/auth.guard';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { AuthService } from './auth.service';
+import { AdminChangePasswordUserDto } from './dto/change-password-user.dto';
 import { ListUserDto, ResListUserDto } from './dto/list-user.dto';
 import { LoginUserDto, ResLoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -57,5 +59,18 @@ export class AuthController {
   @UseGuards(AdminAuthGuard)
   async deleteUser(@Param('id', new ParseObjectIdPipe()) id: string) {
     return this.authService.delete(id);
+  }
+
+  @Put(':id/change-password')
+  @ApiOperation({ summary: 'Admin .Đổi Mật Khẩu Người Dùng' })
+  @UseGuards(AdminAuthGuard)
+  async changePassword(
+    @Param('id', new ParseObjectIdPipe()) id: string,
+    @Body() adminChangePasswordUserDto: AdminChangePasswordUserDto,
+  ) {
+    return this.authService.adminChangePasswordUser(
+      id,
+      adminChangePasswordUserDto.password,
+    );
   }
 }

@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+require('dotenv').config();
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -11,21 +12,21 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      transform:true,
-      transformOptions: { enableImplicitConversion: true }
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
     }),
-  )
-  const PORT = config.get<number>('PORT')
+  );
+  const PORT = process.env.PORT || config.get<number>('PORT');
   const configDocs = new DocumentBuilder()
-  .setTitle('wefinex ')
-  .setDescription('wefinex Api')
-  .setVersion('1.0')
-  .addBearerAuth()
-  .addTag('backend-wefinex')
-  .build();
+    .setTitle('wefinex ')
+    .setDescription('wefinex Api')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .addTag('backend-wefinex')
+    .build();
   const document = SwaggerModule.createDocument(app, configDocs);
   SwaggerModule.setup('swagger', app, document);
   await app.listen(PORT);
-  console.log('App Running On Port : ' + PORT)
+  console.log('App Running On Port : ' + PORT);
 }
 bootstrap();
