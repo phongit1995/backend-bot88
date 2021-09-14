@@ -14,8 +14,8 @@ export class NotificationService {
     this.fcmPushService.sendMessage({
       to: deviceToken,
       notification: {
-        title: 'test',
-        body: 'test',
+        title: 'khoa 3',
+        body: 'khoa 3',
       },
     });
   }

@@ -88,4 +88,17 @@ export class AuthController {
       addTokenNotificationDto.token,
     );
   }
+  @Delete('delete-token')
+  @ApiOperation({ summary: 'Add token notification' })
+  @UseGuards(UserAuthGuard)
+  @HttpCode(204)
+  async deleteTokenNotification(
+    @Body() addTokenNotificationDto: AddTokenNotificationDto,
+    @UserInfo() user: IUserInfo,
+  ) {
+    return this.authService.remoteTokenNotification(
+      user._id,
+      addTokenNotificationDto.token,
+    );
+  }
 }

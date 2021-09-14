@@ -123,4 +123,16 @@ export class AuthService {
       $addToSet: { token },
     });
   }
+  async remoteTokenNotification(id: string, token: string) {
+    let user = await this.userModel.findById(id);
+    if (!user) {
+      throw new HttpException(
+        await this.i18n.translate('user.USER_NOT_FOUND'),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    await this.userModel.findByIdAndUpdate(id.toString, {
+      $pull: { token },
+    });
+  }
 }
