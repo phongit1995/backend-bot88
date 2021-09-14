@@ -1,11 +1,12 @@
-import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export interface IUserInfo {
-    id:string,
-    role:string,
-    userType:string
+  _id: string;
+  role: string;
 }
-export const UserInfo = createParamDecorator((data:unknown,ctx: ExecutionContext)=>{
+export const UserInfo = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.user ;
-})
+    return request.user;
+  },
+);

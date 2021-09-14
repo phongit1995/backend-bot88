@@ -52,9 +52,11 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    let user = await this.userModel.findOne({
-      phone: loginUserDto.phone,
-    });
+    let user = await this.userModel
+      .findOne({
+        phone: loginUserDto.phone,
+      })
+      .select('-token');
     if (!user) {
       throw new HttpException(
         await this.i18n.translate('user.USER_NOT_FOUND'),
@@ -83,7 +85,7 @@ export class AuthService {
       this.userModel
         .find({ role: EUserRole.USER })
         .sort({ createdAt: -1 })
-        .select('-password'),
+        .select('-password -token'),
       this.userModel.countDocuments({ role: EUserRole.USER }),
     ]);
     return createPagination(
@@ -108,5 +110,17 @@ export class AuthService {
       );
     }
     return;
+  }
+  async addtokenNotification(id: string, token: string) {
+    let user = await this.userModel.findById(id);
+    if (!user) {
+      throw new HttpException(
+        await this.i18n.translate('user.USER_NOT_FOUND'),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    await this.userModel.findByIdAndUpdate(id, {
+      $addToSet: { token },
+    });
   }
 }

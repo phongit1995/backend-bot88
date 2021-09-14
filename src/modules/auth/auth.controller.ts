@@ -18,9 +18,11 @@ import {
   ApiProperty,
   ApiTags,
 } from '@nestjs/swagger';
-import { AdminAuthGuard } from 'src/common/auth.guard';
+import { AdminAuthGuard, UserAuthGuard } from 'src/common/auth.guard';
+import { IUserInfo, UserInfo } from 'src/common/decorators/user.decorator';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { AuthService } from './auth.service';
+import { AddTokenNotificationDto } from './dto/add-token.dto';
 import { AdminChangePasswordUserDto } from './dto/change-password-user.dto';
 import { ListUserDto, ResListUserDto } from './dto/list-user.dto';
 import { LoginUserDto, ResLoginUserDto } from './dto/login-user.dto';
@@ -71,6 +73,19 @@ export class AuthController {
     return this.authService.adminChangePasswordUser(
       id,
       adminChangePasswordUserDto.password,
+    );
+  }
+  @Post('add-token')
+  @ApiOperation({ summary: 'Add token notification' })
+  @UseGuards(UserAuthGuard)
+  @HttpCode(204)
+  async addNotification(
+    @Body() addTokenNotificationDto: AddTokenNotificationDto,
+    @UserInfo() user: IUserInfo,
+  ) {
+    return this.authService.addtokenNotification(
+      user._id,
+      addTokenNotificationDto.token,
     );
   }
 }
