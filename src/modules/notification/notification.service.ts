@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { FcmPushService } from 'src/shared/services/firebase.service';
 import { User } from '../users/schemas/user.schema';
+import { ESendNotificationType } from './dto/send-notification.dto';
 
 @Injectable()
 export class NotificationService {
@@ -20,14 +21,58 @@ export class NotificationService {
     });
   }
   async sendNotification(type: number) {
-    let listUser = await this.getTokenOfUser(type);
-    console.log(listUser);
+    let listToken = await this.getTokenOfUser(type > 2 ? 2 : 1);
+    if (listToken.length == 0) {
+      return;
+    }
+    let message: string = '';
+    switch (type) {
+      case ESendNotificationType.MUA:
+        message = 'Mua';
+        break;
+      case ESendNotificationType.BAN:
+        message = 'Bán';
+        break;
+      case ESendNotificationType.CHAN:
+        message = 'Chẵn';
+        break;
+      case ESendNotificationType.LE:
+        message = 'Lẻ';
+        break;
+      case ESendNotificationType.TAI:
+        message = 'Tài';
+        break;
+      case ESendNotificationType.XIU:
+        message = 'Xỉu';
+        break;
+      default:
+        message = '';
+    }
+    await this.fcmPushService.sendMessage({
+      registration_ids: listToken,
+      notification: {
+        title: '👋🏼  Lệnh 👋🏼   ',
+        body: message,
+      },
+      data: {
+        type,
+      },
+    });
+    return {
+      message: 'Gửi thành công. ',
+    };
   }
-  async getTokenOfUser(typeUser: number) {
-    return this.userModel
+  async getTokenOfUser(typeUser: number): Promise<string[]> {
+    let users = await this.userModel
       .find({
         type: typeUser,
+        role: { $ne: 2 },
       })
       .select({ token: 1 });
+    let token: string[] = [];
+    users.forEach(user => {
+      token = token.concat(user.token);
+    });
+    return token;
   }
 }

@@ -88,8 +88,9 @@ export class AuthController {
       addTokenNotificationDto.token,
     );
   }
-  @Delete('delete-token')
-  @ApiOperation({ summary: 'Add token notification' })
+
+  @Post('delete-token/user')
+  @ApiOperation({ summary: 'Delete Token notification' })
   @UseGuards(UserAuthGuard)
   @HttpCode(204)
   async deleteTokenNotification(

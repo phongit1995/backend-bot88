@@ -27,7 +27,7 @@ export class AuthService {
   ) {}
   async registerUser(registerUserDto: RegisterUserDto) {
     let referral = await this.referralCodeModel.findOne({
-      referralCode: registerUserDto.referralCode,
+      referralCode: registerUserDto.referralCode.toUpperCase(),
     });
     if (!referral) {
       throw new HttpException(
@@ -131,7 +131,7 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    await this.userModel.findByIdAndUpdate(id.toString, {
+    await this.userModel.findByIdAndUpdate(id, {
       $pull: { token },
     });
   }

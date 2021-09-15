@@ -2,12 +2,16 @@ import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiConsumes,
+  ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { AdminAuthGuard } from 'src/common/auth.guard';
 import { PushNotificationDevicesDto } from './dto/push-devices.dto';
-import { SendNotificationDto } from './dto/send-notification.dto';
+import {
+  ResNotificationDto,
+  SendNotificationDto,
+} from './dto/send-notification.dto';
 import { NotificationService } from './notification.service';
 @ApiTags('Notification Api')
 @ApiConsumes('Notification Api')
@@ -27,7 +31,10 @@ export class NotificationController {
 
   @Post('send')
   @ApiOperation({ summary: 'gửi thông báo cho nhóm người dùng' })
-  @HttpCode(204)
+  @HttpCode(200)
   @UseGuards(AdminAuthGuard)
-  async send(@Body() SendNotificationDto: SendNotificationDto) {}
+  @ApiOkResponse({ type: ResNotificationDto, status: 200 })
+  async send(@Body() SendNotificationDto: SendNotificationDto) {
+    return this.notificationService.sendNotification(SendNotificationDto.type);
+  }
 }

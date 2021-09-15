@@ -4,7 +4,7 @@ export enum ESendNotificationType {
   MUA = 1,
   BAN = 2,
   TAI = 3,
-  XUI = 4,
+  XIU = 4,
   CHAN = 5,
   LE = 6,
 }
@@ -16,4 +16,9 @@ export class SendNotificationDto {
   })
   @IsEnum(ESendNotificationType)
   type: number;
+}
+
+export class ResNotificationDto {
+  @ApiProperty({ example: 'Gửi Thành Công' })
+  message: string;
 }
