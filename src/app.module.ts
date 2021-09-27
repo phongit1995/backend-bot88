@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
 import { ReferralCodeModule } from './modules/referral-code/referral-code.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { CodeModule } from './modules/code/code.module';
 @Module({
   imports: [
     SharedModule,
@@ -22,6 +23,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     AuthModule,
     ReferralCodeModule,
     NotificationModule,
+    CodeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
