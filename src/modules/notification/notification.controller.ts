@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiConsumes,
@@ -8,6 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { AdminAuthGuard } from 'src/common/auth.guard';
 import { PushNotificationDevicesDto } from './dto/push-devices.dto';
+import { SendNotificationToUserDto } from './dto/send-notification-to-user.dto';
 import {
   ResNotificationDto,
   SendNotificationDto,
@@ -36,5 +45,16 @@ export class NotificationController {
   @ApiOkResponse({ type: ResNotificationDto, status: 200 })
   async send(@Body() SendNotificationDto: SendNotificationDto) {
     return this.notificationService.sendNotification(SendNotificationDto.type);
+  }
+  @Post('user/:id')
+  @ApiOperation({ summary: 'gửi thông báo cho 1 user' })
+  async sendToUser(
+    @Body() sendNotificationToUserDto: SendNotificationToUserDto,
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ) {
+    return this.notificationService.sendNotificationToUser(
+      id,
+      sendNotificationToUserDto.type,
+    );
   }
 }

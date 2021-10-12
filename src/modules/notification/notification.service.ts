@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { FcmPushService } from 'src/shared/services/firebase.service';
@@ -74,5 +74,54 @@ export class NotificationService {
       token = token.concat(user.token);
     });
     return token;
+  }
+
+  async sendNotificationToUser(id: string, type: number) {
+    let user = await this.userModel.findById(id);
+    if (!user) {
+      throw new HttpException(
+        'Người dùng không tồn tại .',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    if (user.token.length == 0) {
+      return;
+    }
+    let message: string = '';
+    switch (type) {
+      case ESendNotificationType.MUA:
+        message = 'Mua';
+        break;
+      case ESendNotificationType.BAN:
+        message = 'Bán';
+        break;
+      case ESendNotificationType.CHAN:
+        message = 'Chẵn';
+        break;
+      case ESendNotificationType.LE:
+        message = 'Lẻ';
+        break;
+      case ESendNotificationType.TAI:
+        message = 'Tài';
+        break;
+      case ESendNotificationType.XIU:
+        message = 'Xỉu';
+        break;
+      default:
+        message = '';
+    }
+    await this.fcmPushService.sendMessage({
+      registration_ids: user.token,
+      notification: {
+        title: '👋🏼  Lệnh 👋🏼   ',
+        body: message,
+      },
+      data: {
+        type,
+      },
+    });
+    return {
+      message: 'Gửi thành công. ',
+    };
   }
 }

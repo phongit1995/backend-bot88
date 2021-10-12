@@ -11,7 +11,7 @@ import { I18nRequestScopeService } from 'nestjs-i18n';
 import { createPagination } from 'src/common/text.helper';
 import { ReferralCode } from '../referral-code/schemas/referral-code.schema';
 import { User } from '../users/schemas/user.schema';
-import { EUserRole } from '../users/user.constant';
+import { EUserRole, EUserType } from '../users/user.constant';
 import { ListUserDto } from './dto/list-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -26,15 +26,15 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   async registerUser(registerUserDto: RegisterUserDto) {
-    let referral = await this.referralCodeModel.findOne({
-      referralCode: registerUserDto.referralCode.toUpperCase(),
-    });
-    if (!referral) {
-      throw new HttpException(
-        await this.i18n.translate('referralCode.REFERRAL_CODE_NOT_FOUND'),
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    // let referral = await this.referralCodeModel.findOne({
+    //   referralCode: registerUserDto.referralCode.toUpperCase(),
+    // });
+    // if (!referral) {
+    //   throw new HttpException(
+    //     await this.i18n.translate('referralCode.REFERRAL_CODE_NOT_FOUND'),
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
     let userCheck = await this.userModel.findOne({
       phone: registerUserDto.phone,
     });
@@ -47,7 +47,7 @@ export class AuthService {
     delete registerUserDto.referralCode;
     return this.userModel.create({
       ...registerUserDto,
-      type: referral.typeAccount,
+      type: EUserType.TAIXIU,
     });
   }
 
