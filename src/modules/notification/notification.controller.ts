@@ -15,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AdminAuthGuard } from 'src/common/auth.guard';
+import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { PushNotificationDevicesDto } from './dto/push-devices.dto';
 import { SendNotificationToUserDto } from './dto/send-notification-to-user.dto';
 import {
@@ -50,7 +51,7 @@ export class NotificationController {
   @ApiOperation({ summary: 'gửi thông báo cho 1 user' })
   async sendToUser(
     @Body() sendNotificationToUserDto: SendNotificationToUserDto,
-    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('id', new ParseObjectIdPipe()) id: string,
   ) {
     return this.notificationService.sendNotificationToUser(
       id,
