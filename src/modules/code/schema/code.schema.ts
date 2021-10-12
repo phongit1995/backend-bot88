@@ -9,7 +9,11 @@ export class Code extends Document {
   @Prop({ type: () => Boolean })
   type: boolean;
 
-  @Prop({ type: ()=>String })
+  @Prop({
+    type: () => String,
+    default:
+      'Cấu hình điện thoại của bạn k phù hợp mã phần mềm này. Vui lòng nhập mã phần mềm khác',
+  })
   message: string;
 }
 export const CodeSchema = SchemaFactory.createForClass(Code);

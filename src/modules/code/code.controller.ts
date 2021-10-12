@@ -13,6 +13,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { CodeService } from './code.service';
 import { CreateCodeDto } from './dto/create-code.dto';
 @ApiTags('Code Api')
@@ -40,7 +41,7 @@ export class CodeController {
 
   @ApiOperation({ summary: 'delete verify code' })
   @Delete(':id')
-  async delete(@Param('id', new ParseUUIDPipe()) id: string) {
+  async delete(@Param('id', new ParseObjectIdPipe()) id: string) {
     return this.codeService.delete(id);
   }
 }
