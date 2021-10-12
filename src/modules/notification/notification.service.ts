@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { FcmPushService } from 'src/shared/services/firebase.service';
 import { User } from '../users/schemas/user.schema';
+import { ESendNotificationToUser } from './dto/send-notification-to-user.dto';
 import { ESendNotificationType } from './dto/send-notification.dto';
 
 @Injectable()
@@ -89,22 +90,22 @@ export class NotificationService {
     }
     let message: string = '';
     switch (type) {
-      case ESendNotificationType.MUA:
-        message = 'Mua';
+      case ESendNotificationToUser.CON:
+        message = 'Con';
         break;
-      case ESendNotificationType.BAN:
-        message = 'Bán';
+      case ESendNotificationToUser.CAI:
+        message = 'Cái';
         break;
-      case ESendNotificationType.CHAN:
+      case ESendNotificationToUser.CHAN:
         message = 'Chẵn';
         break;
-      case ESendNotificationType.LE:
+      case ESendNotificationToUser.LE:
         message = 'Lẻ';
         break;
-      case ESendNotificationType.TAI:
+      case ESendNotificationToUser.TAI:
         message = 'Tài';
         break;
-      case ESendNotificationType.XIU:
+      case ESendNotificationToUser.XIU:
         message = 'Xỉu';
         break;
       default:
