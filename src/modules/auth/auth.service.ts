@@ -26,15 +26,15 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   async registerUser(registerUserDto: RegisterUserDto) {
-    // let referral = await this.referralCodeModel.findOne({
-    //   referralCode: registerUserDto.referralCode.toUpperCase(),
-    // });
-    // if (!referral) {
-    //   throw new HttpException(
-    //     await this.i18n.translate('referralCode.REFERRAL_CODE_NOT_FOUND'),
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
+    let referral = await this.referralCodeModel.findOne({
+      referralCode: registerUserDto.referralCode.toUpperCase(),
+    });
+    if (!referral) {
+      throw new HttpException(
+        await this.i18n.translate('referralCode.REFERRAL_CODE_NOT_FOUND'),
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     let userCheck = await this.userModel.findOne({
       phone: registerUserDto.phone,
     });
