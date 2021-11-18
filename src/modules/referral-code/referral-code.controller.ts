@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -15,6 +16,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { AdminAuthGuard } from 'src/common/auth.guard';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { CreateReferralCodeDto } from './dto/create-referral-code.dto';
 import {
@@ -37,6 +39,7 @@ export class ReferralCodeController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'xoá mã giới thiệu' })
+  @UseGuards(AdminAuthGuard)
   @HttpCode(204)
   async delete(@Param('id', new ParseObjectIdPipe()) id: string) {
     return this.referralCodeService.delete(id);
@@ -44,6 +47,7 @@ export class ReferralCodeController {
 
   @Get()
   @ApiOperation({ summary: 'admin .get list referral-code' })
+  @UseGuards(AdminAuthGuard)
   @ApiOkResponse({ type: ResGetListNewsDto, status: 200 })
   async getList(@Query() listReferralCodeDto: ListReferralCodeDto) {
     return this.referralCodeService.list(listReferralCodeDto);
