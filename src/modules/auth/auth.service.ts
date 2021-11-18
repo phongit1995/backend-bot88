@@ -85,6 +85,8 @@ export class AuthService {
       this.userModel
         .find({ role: EUserRole.USER })
         .sort({ createdAt: -1 })
+        .limit(listUserDto.pageSize)
+        .skip((listUserDto.page - 1) * listUserDto.pageSize)
         .select('-password -token'),
       this.userModel.countDocuments({ role: EUserRole.USER }),
     ]);
