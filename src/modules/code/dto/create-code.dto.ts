@@ -15,6 +15,11 @@ export class CreateCodeDto {
   @IsBoolean()
   type: boolean;
 
+  @ApiProperty({ example: true })
+  @IsBoolean()
+  @IsOptional()
+  actived?: boolean;
+
   @ApiProperty({
     example:
       'Cấu hình điện thoại của bạn k phù hợp mã phần mềm này. Vui lòng nhập mã phần mềm khác',

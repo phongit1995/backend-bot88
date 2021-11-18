@@ -15,5 +15,11 @@ export class Code extends Document {
       'Cấu hình điện thoại của bạn k phù hợp mã phần mềm này. Vui lòng nhập mã phần mềm khác',
   })
   message: string;
+
+  @Prop({
+    type: () => Boolean,
+    default: false,
+  })
+  actived: boolean;
 }
 export const CodeSchema = SchemaFactory.createForClass(Code);

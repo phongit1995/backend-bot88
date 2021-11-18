@@ -17,13 +17,23 @@ export class CodeService {
     let code = await this.codeModel.findOne({ code: id });
     if (!code) {
       throw new HttpException(
-        'Nhập sai báo mã phần mềm ko tồn tại vui lòng liên hệ 0979517777 để nhận mã phần mềm',
+        `Mã phần mềm không tồn tại 
+        Vui lòng liên hệ Hotline/Zalo : 0977144444 để nhận mã phần mềm !`,
         HttpStatus.BAD_REQUEST,
       );
     }
     if (!code.type) {
       throw new HttpException(
-        'Cấu hình điện thoại của bạn k phù hợp mã phần mềm này. Vui lòng nhập mã phần mềm khác',
+        `Lỗi !!!!
+        Điện thoại của bạn không phù hợp mã phần mềm này 
+        Vui lòng nhập mã phần mềm khác`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    if (!code.actived) {
+      throw new HttpException(
+        `Mã phần mềm chưa kích hoạt ! 
+        Liên Hệ Hotline/Zalo : 0977147777 Để kích hoạt !`,
         HttpStatus.BAD_REQUEST,
       );
     }
