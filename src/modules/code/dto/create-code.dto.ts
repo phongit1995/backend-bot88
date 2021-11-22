@@ -15,10 +15,10 @@ export class CreateCodeDto {
   @IsBoolean()
   type: boolean;
 
-  @ApiProperty({ example: true })
-  @IsBoolean()
-  @IsOptional()
-  actived?: boolean;
+  // @ApiProperty({ example: true })
+  // @IsBoolean()
+  // @IsOptional()
+  // actived?: boolean;
 
   @ApiProperty({
     example:

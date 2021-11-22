@@ -27,12 +27,12 @@ export class CodeService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    if (!code.actived) {
-      throw new HttpException(
-        `Mã phần mềm chưa kích hoạt! Liên Hệ Mr. Tiến Để kích hoạt !`,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    // if (!code.actived) {
+    //   throw new HttpException(
+    //     `Mã phần mềm chưa kích hoạt! Liên Hệ Mr. Tiến Để kích hoạt !`,
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
     return code;
   }
 
