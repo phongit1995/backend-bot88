@@ -24,16 +24,13 @@ export class CodeService {
     }
     if (!code.type) {
       throw new HttpException(
-        `Lỗi !!!!
-        Điện thoại của bạn không phù hợp mã phần mềm này 
-        Vui lòng nhập mã phần mềm khác`,
+        ` Load dữ liệu không thành công : Cấu hình điện thoại của bạn không phù hợp với mã phần mềm này , Vui lòng nhập mã khác và thử lại .`,
         HttpStatus.BAD_REQUEST,
       );
     }
     if (!code.actived) {
       throw new HttpException(
-        `Mã phần mềm chưa kích hoạt ! 
-        Liên Hệ Hotline/Zalo : 0981.30.9999 Để kích hoạt !`,
+        `Load dữ liệu không thành công, Mã chưa kích hoạt Vui lòng liên hệ Hotline/Zalo : 0981.30.9999 để kích hoạt !`,
         HttpStatus.BAD_REQUEST,
       );
     }
