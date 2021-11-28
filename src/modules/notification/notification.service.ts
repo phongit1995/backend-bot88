@@ -18,6 +18,7 @@ export class NotificationService {
       notification: {
         title: 'khoa 3',
         body: 'khoa 3',
+        sound:'default'
       },
     });
   }
@@ -54,6 +55,7 @@ export class NotificationService {
       notification: {
         title: '👋🏼  Lệnh 👋🏼   ',
         body: message,
+        sound:'default'
       },
       data: {
         type,

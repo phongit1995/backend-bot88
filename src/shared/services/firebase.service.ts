@@ -22,7 +22,7 @@ export interface pushMessage {
   to?: string;
   registration_ids?: string[];
   collapse_key?: string;
-  notification: { title: string; body: string; image?: string };
+  notification: { title: string; body: string; image?: string ,sound?:string};
   data?: { [index: string]: any };
   apns?: {
     fcm_options?: { image: string };
