@@ -58,4 +58,11 @@ export class NotificationController {
       sendNotificationToUserDto.type,
     );
   }
+  @Post('send-message')
+  @ApiOperation({ summary: 'gửi thông báo xanh đỏ' })
+  @HttpCode(200)
+  @ApiOkResponse({ type: ResNotificationDto, status: 200 })
+  async sendMessage(@Body() SendNotificationDto: SendNotificationDto) {
+    this.notificationService.sendNotificationRealtime();
+  }
 }

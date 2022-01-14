@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { FcmPushService } from 'src/shared/services/firebase.service';
+import { SocketGetWay } from '../socket/socket.getway';
 import { User } from '../users/schemas/user.schema';
 import { ESendNotificationToUser } from './dto/send-notification-to-user.dto';
 import { ESendNotificationType } from './dto/send-notification.dto';
@@ -11,6 +12,7 @@ export class NotificationService {
   constructor(
     private fcmPushService: FcmPushService,
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly socketGetWay:SocketGetWay
   ) {}
   async testPush(deviceToken: string) {
     this.fcmPushService.sendMessage({
@@ -126,5 +128,8 @@ export class NotificationService {
     return {
       message: 'Gửi thành công. ',
     };
+  }
+  async sendNotificationRealtime(){
+    this.socketGetWay.server.emit('result',{data:'name'});
   }
 }

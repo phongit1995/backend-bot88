@@ -9,9 +9,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ReferralCodeModule } from './modules/referral-code/referral-code.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { CodeModule } from './modules/code/code.module';
+import { SocketModule } from './modules/socket/socket.module';
 @Module({
   imports: [
     SharedModule,
+    SocketModule,
     MongooseModule.forRootAsync({
       imports:[ConfigModule],
       inject:[ConfigService],
