@@ -1,0 +1,12 @@
+{
+    "apps": [
+      {
+        "name": "BE-bot88-production",
+        "script": "./dist/main.js",
+        "merge_logs": true,
+        "env": {
+            "PORT":4231
+        }
+      }
+    ]
+}
