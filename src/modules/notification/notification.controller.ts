@@ -17,6 +17,7 @@ import {
 import { AdminAuthGuard } from 'src/common/auth.guard';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { PushNotificationDevicesDto } from './dto/push-devices.dto';
+import { SendMessageRealTimeDto } from './dto/send-message-realtime.dto';
 import { SendNotificationToUserDto } from './dto/send-notification-to-user.dto';
 import {
   ResNotificationDto,
@@ -62,7 +63,7 @@ export class NotificationController {
   @ApiOperation({ summary: 'gửi thông báo xanh đỏ' })
   @HttpCode(200)
   @ApiOkResponse({ type: ResNotificationDto, status: 200 })
-  async sendMessage(@Body() SendNotificationDto: SendNotificationDto) {
-    this.notificationService.sendNotificationRealtime();
+  async sendMessage(@Body() sendMessageRealTimeDto: SendMessageRealTimeDto) {
+    this.notificationService.sendNotificationRealtime(sendMessageRealTimeDto);
   }
 }

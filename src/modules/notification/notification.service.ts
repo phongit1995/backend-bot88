@@ -129,7 +129,7 @@ export class NotificationService {
       message: 'Gửi thành công. ',
     };
   }
-  async sendNotificationRealtime(){
-    this.socketGetWay.server.emit('result',{data:'name'});
+  async sendNotificationRealtime(data:any){
+    this.socketGetWay.server.emit('result',data);
   }
 }
