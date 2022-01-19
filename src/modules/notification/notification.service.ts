@@ -12,7 +12,7 @@ export class NotificationService {
   constructor(
     private fcmPushService: FcmPushService,
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    private readonly socketGetWay:SocketGetWay
+    private readonly socketGetWay: SocketGetWay,
   ) {}
   async testPush(deviceToken: string) {
     this.fcmPushService.sendMessage({
@@ -20,7 +20,7 @@ export class NotificationService {
       notification: {
         title: 'khoa 3',
         body: 'khoa 3',
-        sound:'default'
+        sound: 'default',
       },
     });
   }
@@ -31,11 +31,11 @@ export class NotificationService {
     }
     let message: string = '';
     switch (type) {
-      case ESendNotificationType.MUA:
-        message = 'Mua';
+      case ESendNotificationType.XANH:
+        message = 'Xanh';
         break;
-      case ESendNotificationType.BAN:
-        message = 'Bán';
+      case ESendNotificationType.DO:
+        message = 'Đỏ';
         break;
       case ESendNotificationType.CHAN:
         message = 'Chẵn';
@@ -57,7 +57,7 @@ export class NotificationService {
       notification: {
         title: '👋🏼  Lệnh 👋🏼   ',
         body: message,
-        sound:'default'
+        sound: 'default',
       },
       data: {
         type,
@@ -129,7 +129,7 @@ export class NotificationService {
       message: 'Gửi thành công. ',
     };
   }
-  async sendNotificationRealtime(data:any){
-    this.socketGetWay.server.emit('result',data);
+  async sendNotificationRealtime(data: any) {
+    this.socketGetWay.server.emit('result', data);
   }
 }

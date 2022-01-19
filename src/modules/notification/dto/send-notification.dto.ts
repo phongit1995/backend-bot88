@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 export enum ESendNotificationType {
-  MUA = 1,
-  BAN = 2,
+  XANH = 1,
+  DO = 2,
   TAI = 3,
   XIU = 4,
   CHAN = 5,
