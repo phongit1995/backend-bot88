@@ -8,6 +8,8 @@ export enum ESendNotificationToUser {
   XIU = 4,
   CHAN = 5,
   LE = 6,
+  XANH=7,
+  D0=8
 }
 export class SendNotificationToUserDto {
   @ApiProperty({
