@@ -115,7 +115,7 @@ export class NotificationService {
       case ESendNotificationToUser.XANH:
         message = 'Xanh';
         break;
-        case ESendNotificationToUser.XANH:
+        case ESendNotificationToUser.D0:
           message = 'Đỏ';
           break;
       default:
