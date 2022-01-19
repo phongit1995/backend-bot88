@@ -55,7 +55,7 @@ export class NotificationService {
     await this.fcmPushService.sendMessage({
       registration_ids: listToken,
       notification: {
-        title: '👋🏼  Lệnh 👋🏼   ',
+        title: ' Lệnh    ',
         body: message,
         sound: 'default',
       },
@@ -118,7 +118,7 @@ export class NotificationService {
     await this.fcmPushService.sendMessage({
       registration_ids: user.token,
       notification: {
-        title: '👋🏼  Lệnh 👋🏼   ',
+        title: '  Lệnh   ',
         body: message,
       },
       data: {
@@ -131,5 +131,10 @@ export class NotificationService {
   }
   async sendNotificationRealtime(data: any) {
     this.socketGetWay.server.emit('result', data);
+    return { message: 'success' };
+  }
+  async sendNotificationRealtimeUser(userId: string, data: string) {
+    this.socketGetWay.server.to(userId).emit('result', { type: data });
+    return { message: 'success' };
   }
 }
