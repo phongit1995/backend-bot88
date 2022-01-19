@@ -47,7 +47,7 @@ export class AuthService {
     delete registerUserDto.referralCode;
     return this.userModel.create({
       ...registerUserDto,
-      type: EUserType.TAIXIU,
+      type: referral.typeAccount,
     });
   }
 
