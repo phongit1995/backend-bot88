@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   Param,
   ParseUUIDPipe,
@@ -22,6 +23,7 @@ import {
   SendMessageRealTimeUserDto,
 } from './dto/send-message-realtime.dto';
 import { SendNotificationToUserDto } from './dto/send-notification-to-user.dto';
+import { SendNotificationV2Dto } from './dto/send-notification-v2.dto';
 import {
   ResNotificationDto,
   SendNotificationDto,
@@ -82,5 +84,23 @@ export class NotificationController {
       sendMessageRealTimeUserDto.userId,
       sendMessageRealTimeUserDto.type,
     );
+  }
+
+  @Post('send-message-to-user')
+  @ApiOperation({ summary: 'gửi thông báo xanh đỏ tới user new version' })
+  async sendMessageUserV2(
+    @Body() sendNotificationV2Dto: SendNotificationV2Dto,
+  ) {
+    console.log;
+    return this.notificationService.sendNotificationV2(
+      sendNotificationV2Dto.roomId,
+      sendNotificationV2Dto.type,
+    );
+  }
+
+  @Get('number-in-room/:id')
+  @ApiOperation({ summary: 'Lấy số lượng user in room' })
+  async getNumberInRoom(@Param('id') id: string) {
+    return this.notificationService.getNumberSocketOnRoom(id);
   }
 }

@@ -31,4 +31,9 @@ export class SocketGetWay
   async helloMessage(client: any, data) {
     console.log('data', data);
   }
+  @SubscribeMessage('joinRoom')
+  async joinRoom(client: any, data: string) {
+    client.join(data);
+    console.log('join room : ' + data + ' success');
+  }
 }

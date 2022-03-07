@@ -115,9 +115,9 @@ export class NotificationService {
       case ESendNotificationToUser.XANH:
         message = 'Xanh';
         break;
-        case ESendNotificationToUser.D0:
-          message = 'Đỏ';
-          break;
+      case ESendNotificationToUser.D0:
+        message = 'Đỏ';
+        break;
       default:
         message = '';
     }
@@ -142,5 +142,14 @@ export class NotificationService {
   async sendNotificationRealtimeUser(userId: string, data: string) {
     this.socketGetWay.server.to(userId).emit('result', { type: data });
     return { message: 'success' };
+  }
+
+  async sendNotificationV2(roomId: string, type: number) {
+    const message = type == 1 ? 'xanh' : 'do';
+    this.socketGetWay.server.to(roomId).emit('notification', message);
+  }
+  async getNumberSocketOnRoom(roomId: string) {
+    const listSocket = await this.socketGetWay.server.in(roomId).fetchSockets();
+    return listSocket.length;
   }
 }
