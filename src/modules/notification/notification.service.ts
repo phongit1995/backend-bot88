@@ -55,7 +55,7 @@ export class NotificationService {
     await this.fcmPushService.sendMessage({
       registration_ids: listToken,
       notification: {
-        title: ' Lệnh    ',
+        title: '🔊  Loading  🔊 ',
         body: message,
         sound: 'default',
       },
@@ -124,7 +124,7 @@ export class NotificationService {
     await this.fcmPushService.sendMessage({
       registration_ids: user.token,
       notification: {
-        title: '  Lệnh   ',
+        title: '🔊  Loading  🔊 ',
         body: message,
       },
       data: {
