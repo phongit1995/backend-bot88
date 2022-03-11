@@ -27,6 +27,12 @@ export class CodeController {
     return this.codeService.create(createCodeDto);
   }
 
+  @Get('/active')
+  @ApiOperation({ summary: 'get list code active' })
+  async listCodeActive() {
+    return this.codeService.listCodeActive();
+  }
+
   @ApiOperation({ summary: 'get list code' })
   @Get()
   async list() {

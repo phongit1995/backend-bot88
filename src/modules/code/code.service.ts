@@ -43,4 +43,10 @@ export class CodeService {
   async delete(id: string) {
     await this.codeModel.findByIdAndDelete(id);
   }
+  async listCodeActive() {
+    return this.codeModel.find({
+      actived: true,
+      type: true,
+    });
+  }
 }
