@@ -44,9 +44,11 @@ export class CodeService {
     await this.codeModel.findByIdAndDelete(id);
   }
   async listCodeActive() {
-    return this.codeModel.find({
-      actived: true,
-      type: true,
-    });
+    return this.codeModel
+      .find({
+        actived: true,
+        type: true,
+      })
+      .sort({ createAt: -1 });
   }
 }

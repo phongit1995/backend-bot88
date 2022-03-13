@@ -28,6 +28,7 @@ export class GameController {
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665089/bot88-image/961be7720c0cc3529a1d21_vsvfd7.jpg',
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665089/bot88-image/989b821c2e62e13cb87315_iq9kka.jpg',
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665090/bot88-image/205982ca45b48aead3a5_tkzzxc.jpg',
+      'https://res.cloudinary.com/no-company-name/image/upload/v1646665091/bot88-image/d9155d88f1f63ea867e71_bxsrkv.jpg',
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665089/bot88-image/95a35221fe5f3101684e10_s8ywfe.jpg',
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665090/bot88-image/ad794ee6e2982dc674895_bjzzfv.jpg',
       'https://res.cloudinary.com/no-company-name/image/upload/v1646665089/bot88-image/414ffaca56b499eac0a511_vucr6u.jpg',
