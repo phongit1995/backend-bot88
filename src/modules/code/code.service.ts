@@ -49,6 +49,6 @@ export class CodeService {
         actived: true,
         type: true,
       })
-      .sort({ createAt: -1 });
+      .sort({ createAt: 1 });
   }
 }
