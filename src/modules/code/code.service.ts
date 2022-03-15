@@ -38,7 +38,7 @@ export class CodeService {
   }
 
   async list() {
-    return this.codeModel.find().sort({ createdAt: -1 });
+    return this.codeModel.find().sort({ createdAt: 1 });
   }
   async delete(id: string) {
     await this.codeModel.findByIdAndDelete(id);
