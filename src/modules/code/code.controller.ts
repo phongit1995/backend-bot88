@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Post,
@@ -41,6 +42,7 @@ export class CodeController {
 
   @ApiOperation({ summary: ' verify code' })
   @Post('verify/:code')
+  @HttpCode(200)
   async verify(@Param('code') code: string) {
     return this.codeService.verify(code);
   }
