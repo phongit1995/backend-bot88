@@ -38,7 +38,7 @@ export class CodeService {
   }
 
   async list() {
-    return this.codeModel.find().sort({ createdAt: 1 });
+    return this.codeModel.find().sort({ createdAt: -1 });
   }
   async delete(id: string) {
     await this.codeModel.findByIdAndDelete(id);
@@ -49,6 +49,6 @@ export class CodeService {
         actived: true,
         type: true,
       })
-      .sort({ createAt: 1 });
+      .sort({ createdAt: -1 });
   }
 }
