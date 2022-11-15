@@ -95,10 +95,10 @@ export class NotificationService {
     let message: string = '';
     switch (type) {
       case ESendNotificationToUser.CON:
-        message = 'Con';
+        message = 'Bắt Đầu Phiên Thử';
         break;
       case ESendNotificationToUser.CAI:
-        message = 'Cái';
+        message = 'Kết Thúc Phiên Thử';
         break;
       case ESendNotificationToUser.CHAN:
         message = 'Chẵn';
