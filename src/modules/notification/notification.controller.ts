@@ -15,7 +15,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AdminAuthGuard } from 'src/common/auth.guard';
+import { AdminAuthGuard, SupperAdminAuthGuard } from 'src/common/auth.guard';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
 import { PushNotificationDevicesDto } from './dto/push-devices.dto';
 import {
@@ -48,7 +48,7 @@ export class NotificationController {
   @Post('send')
   @ApiOperation({ summary: 'gửi thông báo cho nhóm người dùng' })
   @HttpCode(200)
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(SupperAdminAuthGuard)
   @ApiOkResponse({ type: ResNotificationDto, status: 200 })
   async send(@Body() SendNotificationDto: SendNotificationDto) {
     return this.notificationService.sendNotification(SendNotificationDto.type);
@@ -68,6 +68,7 @@ export class NotificationController {
   @ApiOperation({ summary: 'gửi thông báo xanh đỏ' })
   @HttpCode(200)
   @ApiOkResponse({ type: ResNotificationDto, status: 200 })
+  @UseGuards(SupperAdminAuthGuard)
   async sendMessage(@Body() sendMessageRealTimeDto: SendMessageRealTimeDto) {
     return this.notificationService.sendNotificationRealtime(
       sendMessageRealTimeDto,
@@ -77,6 +78,7 @@ export class NotificationController {
   @ApiOperation({ summary: 'gửi thông báo xanh đỏ tới user' })
   @HttpCode(200)
   @ApiOkResponse({ type: ResNotificationDto, status: 200 })
+  @UseGuards(SupperAdminAuthGuard)
   async sendMessageUser(
     @Body() sendMessageRealTimeUserDto: SendMessageRealTimeUserDto,
   ) {
@@ -88,6 +90,8 @@ export class NotificationController {
 
   @Post('send-message-to-user')
   @ApiOperation({ summary: 'gửi thông báo xanh đỏ tới user new version' })
+  @HttpCode(200)
+  // @UseGuards(SupperAdminAuthGuard)
   async sendMessageUserV2(
     @Body() sendNotificationV2Dto: SendNotificationV2Dto,
   ) {
@@ -100,6 +104,7 @@ export class NotificationController {
 
   @Get('number-in-room/:id')
   @ApiOperation({ summary: 'Lấy số lượng user in room' })
+  @UseGuards(SupperAdminAuthGuard)
   async getNumberInRoom(@Param('id') id: string) {
     return this.notificationService.getNumberSocketOnRoom(id);
   }

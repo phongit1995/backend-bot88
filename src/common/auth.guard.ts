@@ -38,6 +38,22 @@ export class AdminAuthGuard extends AuthGuard('jwt') {
   }
 }
 @Injectable()
+export class SupperAdminAuthGuard extends AuthGuard('jwt') {
+  canActivate(context: ExecutionContext) {
+    return super.canActivate(context);
+  }
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw err || new UnauthorizedException();
+    }
+    console.log('user.isAdmin', user.isAdmin);
+    if (user.role != EUserRole.ADMIN || user.isAdmin !== true) {
+      throw new ForbiddenException();
+    }
+    return user;
+  }
+}
+@Injectable()
 export class UserAuthGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
     return super.canActivate(context);

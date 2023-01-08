@@ -18,5 +18,8 @@ export class User extends Document {
 
   @Prop({ type: [String] })
   token: string[];
+
+  @Prop({ type: Boolean })
+  isAdmin: boolean;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
