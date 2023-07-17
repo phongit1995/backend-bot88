@@ -11,6 +11,7 @@ import { NotificationModule } from './modules/notification/notification.module';
 import { CodeModule } from './modules/code/code.module';
 import { SocketModule } from './modules/socket/socket.module';
 import { GameModule } from './modules/game/game.module';
+import { ReferralCodeWebModule } from './modules/referral-code-web/referral-code-web.module';
 @Module({
   imports: [
     SharedModule,
@@ -28,6 +29,7 @@ import { GameModule } from './modules/game/game.module';
     NotificationModule,
     CodeModule,
     GameModule,
+    ReferralCodeWebModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -16,6 +16,12 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+  app.enableCors({
+    origin: '*',
+    allowedHeaders:
+      'X-Requested-With,X-HTTP-Method-Override,Content-Type,Accept,Observe,Access-Control-Allow-Headers,Origin,Authorization,token,access-control-allow-origin',
+    methods: 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
+  });
   const PORT = process.env.PORT || config.get<number>('PORT');
   const configDocs = new DocumentBuilder()
     .setTitle('wefinex ')
