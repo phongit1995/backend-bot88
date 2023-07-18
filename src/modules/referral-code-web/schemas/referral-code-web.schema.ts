@@ -10,5 +10,11 @@ export class ReferralCodeWeb extends Document {
     type: () => String,
   })
   message: String;
+
+  @Prop({
+    type:Boolean,
+    default:true,
+  })
+  active: Boolean;
 }
 export const ReferralCodeWebSchema = SchemaFactory.createForClass(ReferralCodeWeb);

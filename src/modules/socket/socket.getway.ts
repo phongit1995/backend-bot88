@@ -7,7 +7,14 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-@WebSocketGateway()
+@WebSocketGateway({
+  cors:{
+    origin: '*',
+    allowedHeaders:
+      'X-Requested-With,X-HTTP-Method-Override,Content-Type,Accept,Observe,Access-Control-Allow-Headers,Origin,Authorization,token,access-control-allow-origin',
+    methods: 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
+  }
+})
 export class SocketGetWay
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   afterInit(server: any) {

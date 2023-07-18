@@ -42,6 +42,13 @@ export class ReferralCodeWebService {
         HttpStatus.NOT_FOUND,
       );
     }
+
+    if(!code.active){
+      throw new HttpException(
+        code.message,
+        HttpStatus.NOT_FOUND,
+      );
+    }
     return code;
   }
 }
