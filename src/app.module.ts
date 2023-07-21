@@ -12,6 +12,8 @@ import { CodeModule } from './modules/code/code.module';
 import { SocketModule } from './modules/socket/socket.module';
 import { GameModule } from './modules/game/game.module';
 import { ReferralCodeWebModule } from './modules/referral-code-web/referral-code-web.module';
+import { ReferralCodeLocateModule } from './modules/referral-code-locate/referral-code-locate.module';
+import { ConfigDataModule } from './modules/config-data/config-data.module';
 @Module({
   imports: [
     SharedModule,
@@ -30,6 +32,8 @@ import { ReferralCodeWebModule } from './modules/referral-code-web/referral-code
     CodeModule,
     GameModule,
     ReferralCodeWebModule,
+    ReferralCodeLocateModule,
+    ConfigDataModule,
   ],
   controllers: [AppController],
   providers: [AppService],
