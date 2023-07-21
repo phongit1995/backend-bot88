@@ -14,7 +14,8 @@ export class ConfigDataService {
     async create(configData: CreateConfigDataDto){
         const data = await this.configDataModel.findOne();
         if(data){
-            throw new HttpException('không thể tạo thêm',HttpStatus.NOT_FOUND);
+            data.zaloPhone = configData.zaloPhone;
+            return data.save()
         }
         return this.configDataModel.create({...configData});
     }
