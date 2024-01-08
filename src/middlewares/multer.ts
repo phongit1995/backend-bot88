@@ -1,6 +1,6 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import multer from "multer"
-import multerS3 from "multer-s3"
+import * as multerS3 from "multer-s3"
 
 const bucketName = 'mys3dat09'
 const region = 'ap-southeast-2'
