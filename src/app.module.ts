@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,6 +14,8 @@ import { GameModule } from './modules/game/game.module';
 import { ReferralCodeWebModule } from './modules/referral-code-web/referral-code-web.module';
 import { ReferralCodeLocateModule } from './modules/referral-code-locate/referral-code-locate.module';
 import { ConfigDataModule } from './modules/config-data/config-data.module';
+import { ZaloApiWebModule } from './modules/zalo-api-web/zalo-api-web.module';
+import { UploadModule } from './modules/upload/upload.module';
 @Module({
   imports: [
     SharedModule,
@@ -33,7 +35,9 @@ import { ConfigDataModule } from './modules/config-data/config-data.module';
     GameModule,
     ReferralCodeWebModule,
     ReferralCodeLocateModule,
+    UploadModule,
     ConfigDataModule,
+    ZaloApiWebModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -41,5 +45,7 @@ import { ConfigDataModule } from './modules/config-data/config-data.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+
   }
 }
+
