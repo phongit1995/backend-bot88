@@ -144,9 +144,13 @@ export class NotificationService {
     return { message: 'success' };
   }
 
-  async sendNotificationV2(roomId: string, type: number) {
+  async sendNotificationV2(roomId: string, type: number,percent?:number) {
     const message = type == 1 ? 'xanh' : 'do';
     this.socketGetWay.server.to(roomId).emit('notification', message);
+    this.socketGetWay.server.to(roomId).emit('notification-message', {
+      type,
+      percent:percent || 99 ,
+    });
   }
   async getNumberSocketOnRoom(roomId: string) {
     const listSocket = await this.socketGetWay.server.in(roomId).fetchSockets();

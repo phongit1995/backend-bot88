@@ -95,10 +95,10 @@ export class NotificationController {
   async sendMessageUserV2(
     @Body() sendNotificationV2Dto: SendNotificationV2Dto,
   ) {
-    console.log;
     return this.notificationService.sendNotificationV2(
       sendNotificationV2Dto.roomId,
       sendNotificationV2Dto.type,
+      sendNotificationV2Dto.percent
     );
   }
 

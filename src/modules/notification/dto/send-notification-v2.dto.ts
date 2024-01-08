@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 export enum ESendNotificationV2Type {
   XANH = 1,
   DO = 2,
@@ -19,6 +19,14 @@ export class SendNotificationV2Dto {
   })
   @IsString()
   roomId: string;
+
+  @ApiProperty({
+    example: 69,
+    description:'phần trăm',
+  })
+  @IsOptional()
+  @IsNumber()
+  percent?: number;
 }
 
 export class ResNotificationV2Dto {
