@@ -17,6 +17,10 @@ export class ZaloApiWeb extends Document {
   @Prop({
     type: () => String,
   })
+  phone: String;
+  @Prop({
+    type: () => String,
+  })
   message: String;
 
   @Prop({

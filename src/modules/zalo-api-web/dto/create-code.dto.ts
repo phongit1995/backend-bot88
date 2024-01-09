@@ -12,6 +12,8 @@ export class CreateCodeDto {
 
     @IsString()
     fullName: string;
+    @IsString()
+    phone: string;
 
     @ApiProperty({ example: true })
     @IsOptional()

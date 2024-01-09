@@ -30,12 +30,11 @@ export class ZaloApiWebService {
     return this.ZaloApiWebModel.find({}).sort({ createdAt: -1 });
   }
   async delete(id: string) {
-    const data = await this.ZaloApiWebModel.findById(id)
-    console.log(data)
-    var startIndex = data.avatar.indexOf("https://mys3dat09.s3.ap-southeast-2.amazonaws.com/") + "https://mys3dat09.s3.ap-southeast-2.amazonaws.com/".length;
-    var desiredPart = data.avatar.substring(startIndex);
-    var decodedString = decodeURIComponent(desiredPart);
-    const deleteFile = await s3.send(new DeleteObjectCommand(bucketParams(decodedString)));
+    // const data = await this.ZaloApiWebModel.findById(id)
+    // var startIndex = data.avatar.indexOf("https://mys3dat09.s3.ap-southeast-2.amazonaws.com/") + "https://mys3dat09.s3.ap-southeast-2.amazonaws.com/".length;
+    // var desiredPart = data.avatar.substring(startIndex);
+    // var decodedString = decodeURIComponent(desiredPart);
+    // const deleteFile = await s3.send(new DeleteObjectCommand(bucketParams(decodedString)));
     return this.ZaloApiWebModel.findByIdAndRemove(id);
   }
 
