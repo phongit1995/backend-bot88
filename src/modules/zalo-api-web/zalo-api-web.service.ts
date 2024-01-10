@@ -14,7 +14,7 @@ export class ZaloApiWebService {
     private readonly i18n: I18nRequestScopeService,
   ) { }
 
-  async createCoede(creatCodeDto: CreateCodeDto, file) {
+  async createCode(creatCodeDto: CreateCodeDto, files) {
     const code = await this.ZaloApiWebModel.findOne({
       code: creatCodeDto.code,
     });
@@ -24,7 +24,7 @@ export class ZaloApiWebService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.ZaloApiWebModel.create({ ...creatCodeDto, avatar: file.location });
+    return this.ZaloApiWebModel.create({ ...creatCodeDto, avatar: files[0].location, bg: files[1].location });
   }
   async list() {
     return this.ZaloApiWebModel.find({}).sort({ createdAt: -1 });

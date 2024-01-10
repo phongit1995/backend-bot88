@@ -13,6 +13,10 @@ export class ZaloApiWeb extends Document {
   @Prop({
     type: () => String,
   })
+  bg: String;
+  @Prop({
+    type: () => String,
+  })
   fullName: String;
   @Prop({
     type: () => String,

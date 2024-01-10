@@ -6,7 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
-  UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -18,7 +18,7 @@ import {
 import { ZaloApiWebService } from './zalo-api-web.service';
 import { CreateCodeDto } from './dto/create-code.dto';
 import { ParseObjectIdPipe } from 'src/common/validation.pipe';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { multerS3Options } from 'src/middlewares/multer';
 @ApiTags('zalo-api-web')
 @ApiConsumes('zalo-api-web')
@@ -30,10 +30,11 @@ export class ZaloApiWebController {
   ) { }
 
   @Post('/create')
-  @UseInterceptors(FileInterceptor('avatar', multerS3Options))
+  @UseInterceptors(FilesInterceptor('files', 2, multerS3Options))
   @ApiOperation({ summary: 'create zalo-api-web' })
-  async create(@Body() createCodeDto: CreateCodeDto, @UploadedFile() file) {
-    return this.referralCodeWebService.createCoede(createCodeDto, file);
+  async create(@Body() createCodeDto: CreateCodeDto, @UploadedFiles() files) {
+
+    return this.referralCodeWebService.createCode(createCodeDto, files);
   }
 
 
