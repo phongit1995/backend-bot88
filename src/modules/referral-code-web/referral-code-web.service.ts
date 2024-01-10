@@ -38,7 +38,7 @@ export class ReferralCodeWebService {
     if (!code) {
       throw new HttpException(
         `Mã phần mềm không tồn tại 
-        Vui lòng liên hệ Hotline/Zalo : 0986.62.4444 để nhận mã phần mềm !`,
+        Vui lòng liên hệ Hotline/Zalo : 0979.51.7777 để nhận mã phần mềm !`,
         HttpStatus.NOT_FOUND,
       );
     }
