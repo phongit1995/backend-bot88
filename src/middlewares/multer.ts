@@ -1,10 +1,12 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import * as multerS3 from "multer-s3"
-const bucketName = 'mys3dat09'
-const region = 'ap-southeast-2'
-const accessKeyId = 'AKIASKEVGBL3TT6OE5FC'
-const secretAccessKey = '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'
+const bucketName = 'social-ola-talk'
+const region = 'hn-1'
+const accessKeyId = 'OYV3VONPCNVVCTW5PBKU'
+const secretAccessKey = 'D03YW6FftNeRs77vKMSDRDrfVAQ7TPmMqr3gQZ86'
+const endpoint ='https://s3.hn-1.cloud.cmctelecom.vn';
 export const s3 = new S3Client({
+    endpoint,
     region,
     credentials: {
         accessKeyId,

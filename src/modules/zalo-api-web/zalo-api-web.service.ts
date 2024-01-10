@@ -4,7 +4,7 @@ import { ZaloApiWeb } from './schemas/zalo-api-web.schema';
 import { Model } from 'mongoose';
 import { CreateCodeDto } from './dto/create-code.dto';
 import { I18nRequestScopeService } from 'nestjs-i18n';
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { bucketParams, s3 } from 'src/middlewares/multer';
 @Injectable()
 export class ZaloApiWebService {
@@ -12,7 +12,7 @@ export class ZaloApiWebService {
     @InjectModel(ZaloApiWeb.name)
     private readonly ZaloApiWebModel: Model<ZaloApiWeb>,
     private readonly i18n: I18nRequestScopeService,
-  ) { }
+  ) {}
 
   async createCode(creatCodeDto: CreateCodeDto, files) {
     const code = await this.ZaloApiWebModel.findOne({
@@ -24,7 +24,15 @@ export class ZaloApiWebService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.ZaloApiWebModel.create({ ...creatCodeDto, avatar: files[0].location, bg: files[1].location });
+    return this.ZaloApiWebModel.create({
+      ...creatCodeDto,
+      avatar: files[0].location?.includes('https://')
+        ? files[0].location
+        : 'https://' + files[0].location,
+      bg: files[1].location?.includes('https://')
+        ? files[1].location
+        : 'https://' + files[1].location,
+    });
   }
   async list() {
     return this.ZaloApiWebModel.find({}).sort({ createdAt: -1 });
@@ -49,10 +57,7 @@ export class ZaloApiWebService {
     }
 
     if (!code.active) {
-      throw new HttpException(
-        code.message,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException(code.message, HttpStatus.NOT_FOUND);
     }
     return code;
   }
