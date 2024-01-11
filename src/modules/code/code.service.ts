@@ -18,7 +18,7 @@ export class CodeService {
     if (!code) {
       throw new HttpException(
         `Mã phần mềm không tồn tại 
-        Vui lòng liên hệ Hotline/Zalo : 0979.51.7777 để nhận mã phần mềm !`,
+        Vui lòng liên hệ Admin để nhận mã phần mềm !`,
         HttpStatus.NOT_FOUND,
       );
     }
@@ -30,7 +30,7 @@ export class CodeService {
     }
     if (!code.actived) {
       throw new HttpException(
-        `Load dữ liệu không thành công, Mã chưa kích hoạt Vui lòng liên hệ Hotline/Zalo : 0979.51.7777 để kích hoạt !`,
+        `Load dữ liệu không thành công, Mã chưa kích hoạt Vui lòng liên hệ Admin để kích hoạt !`,
         HttpStatus.BAD_REQUEST,
       );
     }
