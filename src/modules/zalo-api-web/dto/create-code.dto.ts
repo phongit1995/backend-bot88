@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsBooleanString, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateCodeDto {
     @ApiProperty({ example: 'HELLO-APP' })
@@ -15,8 +15,8 @@ export class CreateCodeDto {
     @IsString()
     phone: string;
 
-    @ApiProperty({ example: true })
+    @ApiProperty()
     @IsOptional()
-    @IsBoolean()
-    active: boolean;
+    @IsNumber()
+    active: number;
 }

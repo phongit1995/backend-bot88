@@ -26,6 +26,7 @@ export class ZaloApiWebService {
     }
     return this.ZaloApiWebModel.create({
       ...creatCodeDto,
+      active: creatCodeDto.active ==1?true:false,
       avatar: files[0].location?.includes('https://')
         ? files[0].location
         : 'https://' + files[0].location,
