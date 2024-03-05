@@ -12,6 +12,18 @@ export class ZaloApiAuth extends Document {
   codeVerify: String;
 
   @Prop({
+    type: () => Number,
+    required:false
+  })
+  latitude: Number;
+
+  @Prop({
+    type: () => Number,
+    required:false,
+  })
+  longitude: Number;
+
+  @Prop({
     type: Boolean,
     default: true,
   })

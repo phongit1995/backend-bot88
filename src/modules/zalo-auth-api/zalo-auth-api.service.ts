@@ -42,6 +42,9 @@ export class ZaloAuthApiService {
         HttpStatus.NOT_FOUND,
       ); 
     }
+    if(data.latitude && data.longitude){
+      await this.zaloApiAuthModel.findByIdAndUpdate(code._id,{latitude:data.latitude,longitude:data.longitude})
+    }
     return code;
   }
     
