@@ -16,6 +16,7 @@ import { ReferralCodeLocateModule } from './modules/referral-code-locate/referra
 import { ConfigDataModule } from './modules/config-data/config-data.module';
 import { ZaloApiWebModule } from './modules/zalo-api-web/zalo-api-web.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { ZaloAuthApiModule } from './modules/zalo-auth-api/zalo-auth-api.module';
 @Module({
   imports: [
     SharedModule,
@@ -38,6 +39,7 @@ import { UploadModule } from './modules/upload/upload.module';
     UploadModule,
     ConfigDataModule,
     ZaloApiWebModule,
+    ZaloAuthApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
