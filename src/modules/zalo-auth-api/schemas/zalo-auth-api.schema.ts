@@ -12,6 +12,11 @@ export class ZaloApiAuth extends Document {
   codeVerify: String;
 
   @Prop({
+    type: () => String,
+  })
+  codeCapacity: String;
+
+  @Prop({
     type: () => Number,
     required:false
   })

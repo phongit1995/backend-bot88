@@ -13,7 +13,6 @@ export class ZaloAuthApiController {
     @Post('/create')
     @ApiOperation({ summary: 'create zalo-auth-api' })
     async create(@Body()body:CreateZaloAuthCodeDto) {
-        console.log('body', body);
         return this.zaloAuthApiService.create(body);
     }
 

@@ -9,4 +9,8 @@ export class CreateZaloAuthCodeDto {
     @ApiProperty({ example: 'VERIFY' })
     @IsString()
     codeVerify: string;
+
+    @ApiProperty({ example: 'DUNGLUONG1' })
+    @IsString()
+    codeCapacity: string;
 }
