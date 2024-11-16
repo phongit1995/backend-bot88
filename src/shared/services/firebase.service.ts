@@ -1,30 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as fcmPush from 'fcm-push';
 import axios from 'axios';
 
 import { JWT } from 'google-auth-library';
-const firebaseConfig = {
-  "type": "service_account",
-  "project_id": "bots-ed127",
-  "private_key_id": "6ef81b30697dcf2270db76cbb099b4a07515ddd5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQ8IK8GRk3Fqiv\nFbkvFqeUyxS1jo4xZk6a5lcbSXCggyASIF9FZAIgLdhjtIURy1qo9VcRGCbxD6GZ\nebMiglVlZxs53wYkdb4gZ6d+TheLmYfE5WWmjklC1FzYVexW7S8+IrX/Zxio/9DU\nfGEVihHoI17Z71rIqt6AUQwA7ZWmqanCN6O0Gxe0Hrwb6TlCWjyqvFat3EfYZHjX\nEvcHGOJbSOHEi1zfU3P0ZJUzcLPSrDrpM20h2sxdkJhN8aT4kL+x5kKr3IZqsi52\n2iLQHvvuX0e0JSh9ahSqgW5WsEN7jGWdhT5+nJ7g33jhCnL4YHZ5AnAL95VQJtkH\nKIAxRDfzAgMBAAECggEAROZ4l5ds07HLVZQDmN1xo7uYqChQ8y3ZzywRm5ChYESF\nUeiesZt1oTt6AwfVPFzJx8j9b0xmcrEGFrHyVMTVeKN3n16kil+Iltn/lvzjl4LQ\nNmsAlBlOvVy7mEHcXIRbMXQJxZSKdghKC0DnW/hrQ8nQtNRieUM1C5W7mZNX0UZe\nHXb0posMknS946/jGty9Jx5mnlBJdUp2mOC4rQ4PAeI9USjgj+wnLzLjhU7YeMdJ\nQ+PFOCVnUkBX0V4OS89DOvn0C5qTMSazAssq+zjcdiaGvZYBX1zxXrzaC61q/WUb\nQpJN7dX/h4h9ph1/0Ab80Swr1DassYzBgvCoGJB57QKBgQC+59gTFhRP5H7xIt4S\n3ehBTgvnaNaLD9qeYuJDGXmY119080vi7Bv6uqfp2OhG/0jxPi4GJV4YQW3t35uB\nef6AiV2BAMbFCK7eEago8WSOiLmoBQwki+EjhuJJWsBcxZt/LgxTXhORZhDKY9+G\nqmwMZg7YpE0rAKNxIANOFw0oZwKBgQDCXEf4/sLDLj7qFVlnOjkP0/S91fTj3xuA\np4tpPZjxa4vKGEEot6QP0VFECtpJKIkZM7umEdnBH+GNg2TUWjfh/70lABklihSZ\n/OClGmw4LtW3HkXxW4M1Zry5RzGey8w4xxQbWRpBFTotJYj6CgijUCgiv2AGypPJ\nQwHSHMYslQKBgCM3rfrHZfPfGTPu1LzyRvhVJ4kHJBz/TbtOTqNGPdJeWPPANk2k\ndPzqFjPjmeYPDivC5sanehZLa7YoPA3ErZiUvrUfqYuLsIazByyWa5CH1IgUdkr/\nqwbcyT3zCe2TXr41hnySrFV0WMCdcAztv4UCBtccaEf4lC44U6PCSOEdAoGAShRI\nLmRTsXbn7eqTN+AeLaU4zD5HZ6762Y+CeGtM5v95uV6DP1S3SHwcgFWum2HC14M7\nS3HUUGKpYnmpLbLxR8dkvTyLWR6G+aZDrUoj40oelPwJ5pNdsDXnSqsTA5Zj0WQ3\nirDsa8/+a4S576txXWXI1m2g2RXPPE+42u+yrP0CgYEAknMEyBfZfhmfkvMaYKeF\nCNU0b9bkWySupYcZQdxEN1o3v5IcgLXWknk438MgWtM+riypCJ9kknR99rQBBmc8\nwgHL24VN6fnijq6iC0dL4OR4RsfY+XjCtfb2M+0qneQkPXxjVvT37RDUtP7GAyfs\nv1XLnB7w0COxdmFAge/H76E=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-9rh6n@bots-ed127.iam.gserviceaccount.com",
-  "client_id": "105424239758703361791",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-9rh6n%40bots-ed127.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
 
 
 @Injectable()
 export class FcmPushService {
-  private fcm: any;
-  private readonly fcmUrl = `https://fcm.googleapis.com/v1/projects/${firebaseConfig.project_id}/messages:send`;
+  private projectId= "bots-ed127";
+  private readonly clientEmail= "firebase-adminsdk-9rh6n@bots-ed127.iam.gserviceaccount.com";
+  private key= "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDBlGdIFRFdKans\nK48UcpDTwEzIhW8DXFwvRGgkI2aHAQn9lfUsKIJ057xKRZ58fIAxiy7meHG5aqM6\nUckYblDWw+MZ4mQ/DFTwtbAffXXw4PklftgLCdTUNk+61dx94+Q6dKKHe5rn2fmi\nMwYTxb3BdFP50tutZF91WWGdwYF4QeOmxaIVHncRiySj0qfS00eyYQe6D0JlWXtA\nCjGuBmNU7/NXLPCuAWrlrd/zERfivSND13rlJZ2B04tU7wxd5padFbOHWrfSB6YJ\nSlCyaghxnnKIgLHOejIqB94F2B8EvCdbrZjL9R2eooD/SIPr3AXkHlJ79+XIVEju\naZneBrwJAgMBAAECggEAASoKRmCOdbpT+D4zBb5PP1+TJqT7Mko6XLQ2d+2SYFWV\nHYyq4fZBaJoVlt3DbDMkfNSXnN4heV1aK3YSXBg0jY7o8GVdHhSN9NLaHKpfJl2r\nNrqqhBB6uPPPRKVxUy/m1fCQvKwor5diQ4Odvpcythvj8gC+y2FrG8EEnKBtQQ+j\nsC4E2fgt7icDmdrZzQzOCLCS1+YMjoV1GMAfr0C3jxUpqJ4JHbpaHAVTMQNyM7/k\n1Vh3iuX4KPsBO60D3B3qmCg/4lRQVeytrRV9q41TA0H3hN7CAdczt2wzoDkmrATR\nNkzdR5Cnh9BhWkKLEsn0ddX7S119Au44tGCziGfcjQKBgQDFb07SuLGIR/2fLV8G\nR8h8aItBsaAvTIF7SLkQhZ4JoKIKKjLiUMyr07K61UkF/veORxFtj2BNBaRcGhEn\nXmS6W6Und9PCinS+ul3uq600anP4hnT7m8S+cIc5YmkW+o9xQXMYnl4w7pLvQjOg\nWb5L8T3Ivc+ARvzt3trMScqz1QKBgQD7AFl3ARX/XIFwPodW6kmUHfTc8iDnZ68J\nioM3MOo+Gc6VC8qGBoTF17spUCiCpUKW0BaADyFHKjU3S9ozobPdT9zKr6FJGuES\nATt07mriZMWf4dh7IIygXJR0K2vaG3VWc89IEyIEgyxlcvn6YTkSH8uScrrPCVt9\nWtS2+NAlZQKBgQCjlFxvdL0K1/LHnpTbpD/0671tWZkJd07UcWV7zekpuuBmoZ31\nKtLZDpZH/Az7nctII5PJ/X/hcOpDsQlDYA7+5I2KjNpzlbmyiMDozW69PfIGGIj2\nKpIw4xT2s5W0hzavtHWDETujOReeinAxzAlB7IevOayhcK+A+iK4He+HXQKBgQCE\nYZHN7xewABUQoxn0YEsAQLB1m4p5IbkyuggsorLYn/nRqE9fUq7SPc6romhLR2gQ\nbJ2BWvl9NCivCmWCF8XqcoWLrQfOq8uLGHVIXbqnvuhwQ8hOYENrDIkLoB8ZAKRp\nPVlUtSqa4KgYtYRcZsyX34cZrUMTkObc/Xv1KNN29QKBgQCMk0eBz9pB52AeXyOS\n03veTwBuz8OpQTP/cdLQNg2HA5GgeW1+RWOuDW2zoY5livetXaih4L2BHJwH9lXK\nxbzF6wThxivXBEdpNEGUpclWrKAhwEGd6W1FTeL9/oSDSiQiav/L2VQb+NkmLbON\n0I7Xh/RYJmYIvfhJhWxbHEhQ+A==\n-----END PRIVATE KEY-----\n";
+  private readonly fcmUrl = `https://fcm.googleapis.com/v1/projects/${this.projectId}/messages:send`;
   constructor(private configService: ConfigService) {
-    this.fcm = new fcmPush(configService.get<string>('NOTIFICATION_KEY'));
   }
   async sendMessage(message: pushMessage): Promise<void> {
     const messageToken = {
@@ -74,11 +61,11 @@ export class FcmPushService {
   }
 
   async getAccessToken(){
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) =>{
       const jwtClient = new JWT(
-        firebaseConfig.client_email,
+        this.clientEmail,
         null,
-        firebaseConfig.private_key,
+        this.key,
         ['https://www.googleapis.com/auth/firebase.messaging'],
         null
       );
@@ -87,6 +74,7 @@ export class FcmPushService {
           reject(err);
           return;
         }
+        console.log(tokens.access_token);
         resolve(tokens.access_token);
       });
     });
