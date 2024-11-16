@@ -14,42 +14,49 @@ export class FcmPushService {
   constructor(private configService: ConfigService) {
   }
   async sendMessage(message: pushMessage): Promise<void> {
-    const messageToken = {
-      message: {
-        tokens: message.registration_ids,
-        token: message.to,
-        notification: {
-          title: message.notification.title,
-          body: message.notification.body,
-        },
-        android: {
-          ttl: '3600s', 
-          priority: 'high',
-        },
-        apns: {
-          headers: {
-            'apns-priority': '10',
+    console.log(message);
+    const listToken = [].concat(message.registration_ids || []);
+    if(message.to) {
+      listToken.push(message.to);
+    }
+    listToken.map(async (token)=>{
+      const messageToken = {
+        message: {
+          token,
+          notification: {
+            title: message.notification.title,
+            body: message.notification.body,
+          },
+          android: {
+            ttl: '3600s', 
+            priority: 'high',
+          },
+          apns: {
+            headers: {
+              'apns-priority': '10',
+            },
           },
         },
-      },
-    };
-    console.log(messageToken);
-    try {
-      // Call Firebase Cloud Messaging API
-      const response = await axios.post(this.fcmUrl, messageToken, {
-        headers: {
-          'Authorization': `Bearer ${await this.getAccessToken()}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Notification sent successfully:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error sending notification:', error.response ? error.response.data : error.message);
-      console.log(JSON.stringify(error.response.data))
-      throw error;
-    }
+      };
+      console.log(messageToken);
+      try {
+        // Call Firebase Cloud Messaging API
+        const response = await axios.post(this.fcmUrl, messageToken, {
+          headers: {
+            'Authorization': `Bearer ${await this.getAccessToken()}`,
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        console.log('Notification sent successfully:', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Error sending notification:', error.response ? error.response.data : error.message);
+        console.log(JSON.stringify(error.response.data))
+        throw error;
+      }
+    })
+    
     // this.fcm.send(message, function(err, response) {
     //   if (err) {
     //     console.log(err);
