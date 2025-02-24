@@ -17,6 +17,7 @@ import { ConfigDataModule } from './modules/config-data/config-data.module';
 import { ZaloApiWebModule } from './modules/zalo-api-web/zalo-api-web.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { ZaloAuthApiModule } from './modules/zalo-auth-api/zalo-auth-api.module';
+import { UnlockIcloudModule } from './modules/unlock-icloud/unlock-icloud.module';
 @Module({
   imports: [
     SharedModule,
@@ -40,6 +41,7 @@ import { ZaloAuthApiModule } from './modules/zalo-auth-api/zalo-auth-api.module'
     ConfigDataModule,
     ZaloApiWebModule,
     ZaloAuthApiModule,
+    UnlockIcloudModule,
   ],
   controllers: [AppController],
   providers: [AppService],
